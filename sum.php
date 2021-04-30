@@ -12,25 +12,25 @@ class Sum {
         $a = 0;
         foreach ($number as $pattern) {
             switch ($pattern) {
-                case 'J':
+                case strpos($pattern, 'J')!==false:
                     $points += 10;
                     break;
-                case 'Q':
+                case strpos($pattern, 'Q')!==false:
                     $points += 10;
                     break;
-                case 'K':
+                case strpos($pattern, 'K')!==false:
                     $points += 10;
                     break;
-                case 'A':
+                case strpos($pattern, 'A')!==false:
                     $points += 10;
                     $a += 1;
                     break;
                 default:
-                    $points += intval($pattern);
+                    $points += preg_replace('/[^0-9]/', '', $pattern);
                     break;
             }
         }
-        if ($points > 21 && $__ace >= 1) {
+        if ($points > 21 && $a >= 1) {
             $points -= 9;
         }
         return $points;
