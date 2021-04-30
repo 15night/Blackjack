@@ -29,6 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['Deck'] = $deck;
             //合計未実装
             $player_sum = $sum->calculateSum($_SESSION['Playercard']);
+            echo '<pre>';
+                var_dump($player_sum);
+            echo '</pre>';
             $judgement = $judgement->burstorblackjack($player_sum);
             $_SESSION['Display'][]= 'あなたのカードの合計は:' . $player_sum;
             $_SESSION['times']=2;
@@ -102,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endforeach ?>
 
         <form action='' method='post'>
-            <input type="submit" name='button' value='はじめから'>
+            <input type="submit" name='choice' value='はじめから'>
         </form>
         <?php else : ?>
 
