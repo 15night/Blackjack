@@ -14,7 +14,7 @@ class Game {
 
     
 
-    public function firstcard() {
+    public function firstCard() {
 
         $this->display[] = 'あなたが引いたカード１枚目は' . $_SESSION['Playercard'][0] . 'です';
 
@@ -28,12 +28,8 @@ class Game {
 
     
 
-    public function playernextcard(){
-
-        $this->i++;
-
-        $this->display[] = 'あなたが追加で引いたカードは' . $_SESSION['Playercard'][1] . 'です';
-
+    public function playerNextCard(int $i){
+        $this->display[] = 'あなたが引いたカードは' . $_SESSION['Playercard'][$i] . 'です';
         return $this->display;
 
     }
