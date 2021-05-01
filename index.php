@@ -7,9 +7,7 @@ require_once('player.php');
 require_once('dealer.php');
 require_once('judgement.php');
 require_once('sum.php');
-
-
-
+//10
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $choice = $_POST['choice'];
     $game = new Game();
@@ -27,12 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             array_splice($deck, 0, 2); 
             $_SESSION['Display'] = $game->firstCard();
             $_SESSION['Deck'] = $deck;
-            //合計未実装
             $player_sum = $sum->calculateSum($_SESSION['Playercard']);
-            echo '<pre>';
-                var_dump($player_sum);
-            echo '</pre>';
-            $judgement = $judgement->burstorblackjack($player_sum);
+            $judgement = $judgement->burstOrBlackjack($player_sum);
             $_SESSION['Display'][]= 'あなたのカードの合計は:' . $player_sum;
             $_SESSION['times']=2;
             session_write_close();
@@ -40,31 +34,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'カードを追加':	   
             $_SESSION['Playercard'][] = $player->getNextPlayerCard($_SESSION['Deck']);
-            array_splice($_SESSION['Deck'], 0, 1); 
-            echo '<pre>';
-                var_dump($_SESSION['Playercard']);
-            echo '</pre>';
-            echo '<pre>';
-                var_dump($_SESSION['Dealercard']);
-            echo '</pre>';
-            echo '<pre>';
-                var_dump($_SESSION['Deck']);
-            echo '</pre>'; 
+            array_splice($_SESSION['Deck'], 0, 1);
+            //echo '<pre>';
+                //var_dump($_SESSION['Playercard']);
+            //echo '</pre>';
             $times=$_SESSION['times'];
             $_SESSION['Display'] = $game->playerNextCard($times);
             $times++;
             $_SESSION['times']=$times;
-            echo '<pre>';
-                var_dump($_SESSION['times']);
-            echo '</pre>'; 
-            $player_sum = $sum->calculatesum($_SESSION['Playercard']);
-            $judgement = $judgement->burstorblackjack($player_sum);
+            $player_sum = $sum->calculateSum($_SESSION['Playercard']);
+            $judgement = $judgement->burstOrBlackjack($player_sum);
             $_SESSION['Display'][]= 'あなたのカードの合計は:' . $player_sum;
-   
             break;
 
         case 'ステイ':
-
+            $player_sum = $sum->calculateSum($_SESSION['Playercard']);
+            $dealer_sum = $sum->calculateSum($_SESSION['Dealercard']);
+            $judgement = $judgement->burstOrBlackjack($dealer_sum);
+            $playerfirstpoint=$sum->calculateSum($_SESSION['Playercard'][0]);
+            $expectplayercard = $player->expectPlayerSum($playerfirstpoint, $_SESSION['Deck']);
+            $expectdealercard = $dealer->expectDealerSum($dealer_sum, $_SESSION['Deck']);
+            $playerallcount=$player->expectPlayerCount($expectplayercard);
+            $dealerallcount=$dealer->expectDealerCount($expectdealercard);
+            $dealerburstcount=$dealer->expectDealerBurst($expectdealercard);
+            echo '<pre>';
+                var_dump($dealerburstcount);
+            echo '</pre>';
+            echo '<pre>';
+                var_dump($expectdealercard);
+            echo '</pre>';
             break;
     }
 

@@ -7,10 +7,11 @@ require_once('sum.php');
 
 class Judge {
     private $messages = [];
-    public function burstorblackjack($_sum){
-        if ($_sum == 21){
+    public function burstOrBlackjack($_sum){
+        if ($_sum === 21){
             $this->messages[] = 'BlackJack!!!!';
             $this->messages[] = 'おめでとうございます！Playerの勝ちです！！';
+            return $this->messages;
         }elseif ($_sum > 21){
             $this->messages[] = 'バーストしました！！';
             $this->messages[] = 'あなたの負けです！！';
