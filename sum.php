@@ -10,7 +10,7 @@ class Sum {
     public function calculateSum($number) {
         $points = 0;
         $a = 0;
-        foreach ($number as $pattern) {
+        foreach ((array)$number as $pattern) {
             switch ($pattern) {
                 case strpos($pattern, 'J')!==false:
                     $points += 10;

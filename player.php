@@ -13,9 +13,36 @@ class Player {
         $playernextcard  = array_shift($arr);
         return $playernextcard;
     }
-    
-}
 
+    public function expectPlayerSum($pfp, $_arr){
+        $ex_player=[];
+        foreach ($_arr as $value){
+            switch ($value) {
+                case strpos($value, 'J')!==false:
+                    $ex_player[]= $pfp+10;
+                    break;
+                case strpos($value, 'Q')!==false:
+                    $ex_player[]= $pfp+10;
+                    break;
+                case strpos($value, 'K')!==false:
+                    $ex_player[]= $pfp+10;
+                    break;
+                case strpos($value, 'A')!==false:
+                    $ex_player[]= $pfp+1;
+                    break;
+                default:
+                    $ex_player[]= $pfp+ preg_replace('/[^0-9]/', '', $value);
+                    break;
+             }
+        }
+        return $ex_player; 
+    }
+
+    public function expectPlayerCount($__arr){
+        $_playerallcount= count($__arr);
+        return $_playerallcount;
+    }
+}
 
 
 ?>
