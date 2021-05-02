@@ -11,7 +11,6 @@ class Dealer {
     }
 
     public function expectDealerSum($dfp, $_arr){
-        $ace=0;
         $ex_dealer=[];
         foreach ($_arr as $value){
             switch ($value) {
@@ -26,8 +25,6 @@ class Dealer {
                     break;
                 case strpos($value, 'A')!==false:
                     $ex_dealer[]= $dfp+1;
-                    $this->a=$this->ace+1;
-                    echo $this->ace;
                     break;
                 default:
                     $ex_dealer[]= $dfp+ preg_replace('/[^0-9]/', '', $value);
@@ -36,20 +33,31 @@ class Dealer {
         }
         return $ex_dealer;
     }
-    public function expectDealerCount($__arr){
-        $_dealerallcount= count($__arr);
+    public function aCheck($__arr, $dsp){
+        $dealeracount= count(array_filter($__arr, function($ace) {
+        return strpos($ace, 'A')!==false;
+        }));
+        $dsp=$dsp-$dealeracount*9;
+        return $dsp;
+    }
+
+    public function expectDealerCount($___arr){
+        $_dealerallcount= count($___arr);
         return $_dealerallcount;
     }
 
-    public function expectDealerBurst($___arr){
-        $dealerburst = array_filter($___arr, function($burst) {
+    public function expectDealerBurst($____arr){
+        $dealerburst = array_filter($____arr, function($burst) {
         return $burst >= 22;
         });
         $_dealerburstcount= count($dealerburst);
         return $_dealerburstcount;
     }
+
+    public function getNextDealerCard($_____arr){
+        $dealernextcard  = array_shift($_____arr);
+        return $dealernextcard;
+    }
+
 }
-
-
-
 ?>
