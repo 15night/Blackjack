@@ -42,6 +42,13 @@ class Player {
         $_playerallcount= count($__arr);
         return $_playerallcount;
     }
+    public function playerVictoryCount($___arr, $dc){
+        $_playervictory = array_filter($___arr, function($victory) use($dc) {
+        return $victory>$dc;
+        });
+        $_playervictorycount= count($_playervictory);
+        return $_playervictorycount;
+    }
 }
 
 
