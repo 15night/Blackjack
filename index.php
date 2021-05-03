@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $player_sum = $sum->calculateSum($_SESSION['Playercard']);
             $dealer_sum = $sum->calculateSum($_SESSION['Dealercard']);
             $_SESSION['Display'][] = 'ディーラーの2枚目のカードは' . $_SESSION['Dealercard'][1] . 'でした';
+            $_SESSION['Display'][]= 'ディーラーのカードの合計は:' . $dealer_sum;
             $dealeracheck = $dealer->aCheck($_SESSION['Dealercard'],$dealer_sum);
             $judgement = $judge->burstOrBlackjack($dealer_sum,'ディーラー');          
             $playerfirstpoint=$sum->calculateSum($_SESSION['Playercard'][0]);
@@ -58,26 +59,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dealerallcount=$dealer->expectDealerCount($expectdealercard);
             $dealerburstcount=$dealer->expectDealerBurst($expectdealercard);
             $playervictorycount=$player->playerVictoryCount($expectplayercard,$dealer_sum);
+            $dealercompare=$dealerburstcount/$dealerallcount;
+            $playercompare=$playervictorycount/$playerallcount;
+            echo '<pre>';
+                        var_dump($dealerburstcount);
+            echo '</pre>';
+            echo '<pre>';
+                        var_dump($dealerallcount);
+            echo '</pre>';
+            echo '<pre>';
+                        var_dump($dealercompare);
+            echo '</pre>';
+            echo '<pre>';
+                        var_dump($playervictorycount);
+            echo '</pre>';
+            echo '<pre>';
+                        var_dump($playerallcount);
+            echo '</pre>';
+            echo '<pre>';
+                        var_dump($playercompare);
+            echo '</pre>';
+            
             while (empty($judgement)) {
-                if ($dealerburstcount/$dealerallcount < $playervictorycount/$playerallcount) {
+                if ($dealer_sum < $player_sum && $dealercompare < $playercompare) {
+                    
                     $_SESSION['Dealercard'][] = $dealer->getNextDealerCard($_SESSION['Deck']);
                     array_splice($_SESSION['Deck'], 0, 1);
-                    $_SESSION['Display'][] = $game->dealerNextCard($dealertimes);
+                    $_SESSION['Display'][] = 'ディーラーが追加で' . $_SESSION['Dealercard'][$dealertimes] . 'のカードを引きました';
                     $dealertimes++;
-                    echo '<pre>';
-                        var_dump($_SESSION['Display']);
-                    echo '</pre>';
                     $dealer_sum = $sum->calculateSum($_SESSION['Dealercard']);
                     $judgement = $judge->burstOrBlackjack($dealer_sum,'ディーラー');
                     $dealeracheck = $dealer->aCheck($_SESSION['Dealercard'], $dealer_sum);
                     $expectdealercard = $dealer->expectDealerSum($dealeracheck, $_SESSION['Deck']);
                     $dealerallcount=$dealer->expectDealerCount($expectdealercard);
                     $dealerburstcount=$dealer->expectDealerBurst($expectdealercard);
+                    $_SESSION['Display'][]= 'ディーラーのカードの合計は:' . $dealer_sum;
                     echo '<pre>';
                         var_dump($_SESSION['Display']);
                     echo '</pre>';
                 }else{
-                    $_SESSION['Display'][]= 'ディーラーのカードの合計は:' . $dealer_sum;
                     echo '<pre>';
                         var_dump($_SESSION['Display']);
                     echo '</pre>';
