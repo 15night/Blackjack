@@ -20,14 +20,6 @@ class Game {
         return $this->display;
     }
 
-    public function dealerNextCard(int $d){
-        $arr=[];
-        $arr[]= 'ディーラーが追加で' . $_SESSION['Dealercard'][$d] . 'のカードを引きました';
-        array_merge($this->display, $arr);
-        return $this->display;
-    }
-    
-
 }
 
 
