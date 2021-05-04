@@ -61,24 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $playervictorycount=$player->playerVictoryCount($expectplayercard,$dealer_sum);
             $dealercompare=$dealerburstcount/$dealerallcount;
             $playercompare=$playervictorycount/$playerallcount;
-            echo '<pre>';
-                        var_dump($dealerburstcount);
-            echo '</pre>';
-            echo '<pre>';
-                        var_dump($dealerallcount);
-            echo '</pre>';
-            echo '<pre>';
-                        var_dump($dealercompare);
-            echo '</pre>';
-            echo '<pre>';
-                        var_dump($playervictorycount);
-            echo '</pre>';
-            echo '<pre>';
-                        var_dump($playerallcount);
-            echo '</pre>';
-            echo '<pre>';
-                        var_dump($playercompare);
-            echo '</pre>';
             
             while (empty($judgement)) {
                 if ($dealer_sum < $player_sum && $dealercompare < $playercompare) {
