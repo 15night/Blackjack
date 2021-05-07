@@ -1,5 +1,4 @@
 <?php
-
 require_once('cards.php');
 require_once('index.php');
 require_once('game.php');
@@ -29,7 +28,5 @@ class Judge {
         return $this->messages;
     }
 }
-
-
 ?>
 

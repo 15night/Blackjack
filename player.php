@@ -13,10 +13,9 @@ class Player {
         $playernextcard  = array_shift($arr);
         return $playernextcard;
     }
-
-    public function expectPlayerSum($pfp, $_arr){
+    public function expectPlayerSum($pfp, $arr){
         $ex_player=[];
-        foreach ($_arr as $value){
+        foreach ($arr as $value){
             switch ($value) {
                 case strpos($value, 'J')!==false:
                     $ex_player[]= $pfp+10;
@@ -37,19 +36,17 @@ class Player {
         }
         return $ex_player; 
     }
-
-    public function expectPlayerCount($__arr){
-        $_playerallcount= count($__arr);
+    public function expectPlayerCount($arr){
+        $_playerallcount= count($arr);
         return $_playerallcount;
     }
-    public function playerVictoryCount($___arr, $dc){
-        $_playervictory = array_filter($___arr, function($victory) use($dc) {
+    public function playerVictoryCount($arr, $dc){
+        $_playervictory = array_filter($arr, function($victory) use($dc) {
         return $victory>$dc;
         });
         $_playervictorycount= count($_playervictory);
         return $_playervictorycount;
     }
 }
-
 
 ?>
