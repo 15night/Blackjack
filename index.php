@@ -7,7 +7,8 @@ require_once('dealer.php');
 require_once('judgement.php');
 require_once('sum.php');
 
-    $choice = $_GET['choice'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $choice = $_POST['choice'];
     $game = new Game();
     $allcard = new Cards();
     $player = new Player();
@@ -80,7 +81,9 @@ require_once('sum.php');
             }
             break;
     }
-
+} else {
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +96,7 @@ require_once('sum.php');
     </head>
     <body class="body">
         <!-- 最初のカード確認 -->
-        <h1 class="text-color">Blackjackへようこそ</h1>
+        <h1 class="text-color">Blackjack　Start</h1>
         <?php foreach ($_SESSION['Display'] as $message) : ?>
         <p class="text-color"><?php echo $message ?></p>
         <?php endforeach; ?>
