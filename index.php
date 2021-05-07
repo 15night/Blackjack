@@ -7,7 +7,6 @@ require_once('dealer.php');
 require_once('judgement.php');
 require_once('sum.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $choice = $_GET['choice'];
     $game = new Game();
     $allcard = new Cards();
@@ -81,9 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             break;
     }
-} else {
-    exit();
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -104,12 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <?php foreach ($judgement as $judge) : ?>
         <p><?= $judge; ?></p>
         <?php endforeach ?>
-        <form action='' method='get'>
+        <form action='' method='post'>
             <input type="submit" name='choice' value='はじめから'>
         </form>
         <?php else : ?>
         <p>カードをひきますか？</p>
-        <form action='' method='get'>
+        <form action='' method='post'>
             <input type='submit' name='choice' value='カードを追加'>
             <input type='submit' name='choice' value='ステイ'>
             <input type='submit' name='choice' value='はじめから'>
