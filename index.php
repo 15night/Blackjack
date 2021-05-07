@@ -8,7 +8,7 @@ require_once('judgement.php');
 require_once('sum.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $choice = $_POST['choice'];
+    $choice = $_GET['choice'];
     $game = new Game();
     $allcard = new Cards();
     $player = new Player();
