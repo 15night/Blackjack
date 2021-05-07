@@ -4,8 +4,10 @@ require_once('index.php');
 require_once('game.php');
 require_once('judgement.php');
 
-class Sum {
-    public function calculateSum($number) {
+class Sum
+{
+    public function calculateSum($number)
+    {
         $points = 0;
         $a = 0;
         foreach ((array)$number as $pattern) {
@@ -34,5 +36,3 @@ class Sum {
         return $points;
     }
 }
-
-?>
