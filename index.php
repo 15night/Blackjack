@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </head>
     <body class="body">
         <!-- 最初のカード確認 -->
-        <h1 class="text-color">Blackjack　Start</h1>
+        <h1 class="text-color">Blackjack Game Start</h1>
         <?php foreach ($_SESSION['Display'] as $message) : ?>
         <p class="text-color"><?php echo $message ?></p>
         <?php endforeach; ?>
