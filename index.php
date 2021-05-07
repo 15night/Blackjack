@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once('cards.php');
 require_once('game.php');
@@ -18,11 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sum = new Sum();
     switch ($choice) {
         case 'はじめから':
+            $firstdeck=2;
             $deck = $allcard->createDeck();
-            $_SESSION['Playercard'] = $player->getPlayerCard(2,$deck);
-            array_splice($deck, 0, 2); 
-            $_SESSION['Dealercard'] = $dealer->getDealerCard(2,$deck); 
-            array_splice($deck, 0, 2); 
+            $_SESSION['Playercard'] = $player->getPlayerCard($firstdeck,$deck);
+            array_splice($deck, 0, $firstdeck); 
+            $_SESSION['Dealercard'] = $dealer->getDealerCard($firstdeck,$deck); 
+            array_splice($deck, 0, $firstdeck); 
             $_SESSION['Display'] = $game->firstCard();
             $_SESSION['Deck'] = $deck;
             $player_sum = $sum->calculateSum($_SESSION['Playercard']);
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_write_close();
             break;
 
-        case 'カードを追加':	   
+        case 'カードを追加':
             $_SESSION['Playercard'][] = $player->getNextPlayerCard($_SESSION['Deck']);
             array_splice($_SESSION['Deck'], 0, 1);
             $playertimes=$_SESSION['Playertimes'];
@@ -76,29 +76,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $dealerallcount=$dealer->expectDealerCount($expectdealercard);
                     $dealerburstcount=$dealer->expectDealerBurst($expectdealercard);
                     $_SESSION['Display'][]= 'ディーラーのカードの合計は:' . $dealer_sum;
-                    echo '<pre>';
-                        var_dump($_SESSION['Display']);
-                    echo '</pre>';
                 }else{
-                    echo '<pre>';
-                        var_dump($_SESSION['Display']);
-                    echo '</pre>';
                     $judgement = $judge->checkTheWinner($player_sum,$dealer_sum);
                 }
-           
             }
             break;
     }
-
 }else {
     exit();
-
 }
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -111,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <body class="body">
         <!-- 最初のカード確認 -->
         <h1 class="text-color">Blackjackへようこそ</h1>
-   
         <?php foreach ($_SESSION['Display'] as $message) : ?>
         <p class="text-color"><?php echo $message ?></p>
         <?php endforeach; ?>
@@ -119,12 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php foreach ($judgement as $judge) : ?>
         <p><?= $judge; ?></p>
         <?php endforeach ?>
-
         <form action='' method='post'>
             <input type="submit" name='choice' value='はじめから'>
         </form>
         <?php else : ?>
-
         <p>カードをひきますか？</p>
         <form action='' method='post'>
             <input type='submit' name='choice' value='カードを追加'>
@@ -132,7 +116,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type='submit' name='choice' value='はじめから'>
         </form>
         <?php endif; ?>
-
     </body>
-
 </html>

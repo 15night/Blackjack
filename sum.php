@@ -1,12 +1,10 @@
 <?php
-
 require_once('cards.php');
 require_once('index.php');
 require_once('game.php');
 require_once('judgement.php');
 
 class Sum {
-    
     public function calculateSum($number) {
         $points = 0;
         $a = 0;
@@ -36,7 +34,5 @@ class Sum {
         return $points;
     }
 }
-
-
 
 ?>
