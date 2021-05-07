@@ -4,8 +4,10 @@ require_once('index.php');
 require_once('game.php');
 require_once('judgement.php');
 
-class Sum {
-    public function calculateSum($number) {
+class Sum
+{
+    public function calculateSum($number)
+    {
         $points = 0;
         $a = 0;
         foreach ((array)$number as $pattern) {
@@ -28,11 +30,12 @@ class Sum {
                     break;
             }
         }
-        if ($points > 21 && $a >= 1) {
-            $points -= 9;
+        while ($a>0 && $a<=4) {
+            if ($points > 21) {
+                $points -= 9;
+            }
+            $a-=1;
         }
         return $points;
     }
 }
-
-?>
