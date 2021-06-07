@@ -1,5 +1,6 @@
 <?php
-class Cards{
+class Cards
+{
     private $all =[];
     private $marks =array(
     "♥","♦","♣","♠"
@@ -8,16 +9,14 @@ class Cards{
     private $player= [];
     private $dealer = [];
 
-    public function createDeck() {
-      foreach($this->marks as $mark){
-        foreach($this->numbers as $number){
-            array_push($this->all, $mark . "の" . $number);
-        }  
-      }
-      shuffle($this->all);
-      return $this->all;
+    public function createDeck()
+    {
+        foreach ($this->marks as $mark) {
+            foreach ($this->numbers as $number) {
+                array_push($this->all, $mark . "の" . $number);
+            }
+        }
+        shuffle($this->all);
+        return $this->all;
     }
 }
-
-
-?>

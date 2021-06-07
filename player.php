@@ -1,21 +1,24 @@
 <?php
 
-class Player {
-    
-    public function getPlayerCard($num, $arr){
+class Player
+{
+    public function getPlayerCard($num, $arr)
+    {
         $playercard = [];
         for ($i=0; $i<$num; $i++) {
             $playercard[] = array_shift($arr);
         }
         return $playercard;
     }
-    public function getNextPlayerCard($arr){
+    public function getNextPlayerCard($arr)
+    {
         $playernextcard  = array_shift($arr);
         return $playernextcard;
     }
-    public function expectPlayerSum($pfp, $arr){
+    public function expectPlayerSum($pfp, $arr)
+    {
         $ex_player=[];
-        foreach ($arr as $value){
+        foreach ($arr as $value) {
             switch ($value) {
                 case strpos($value, 'J')!==false:
                     $ex_player[]= $pfp+10;
@@ -34,19 +37,19 @@ class Player {
                     break;
              }
         }
-        return $ex_player; 
+        return $ex_player;
     }
-    public function expectPlayerCount($arr){
+    public function expectPlayerCount($arr)
+    {
         $_playerallcount= count($arr);
         return $_playerallcount;
     }
-    public function playerVictoryCount($arr, $dc){
-        $_playervictory = array_filter($arr, function($victory) use($dc) {
-        return $victory>$dc;
+    public function playerVictoryCount($arr, $dc)
+    {
+        $_playervictory = array_filter($arr, function ($victory) use ($dc) {
+            return $victory>$dc;
         });
         $_playervictorycount= count($_playervictory);
         return $_playervictorycount;
     }
 }
-
-?>
